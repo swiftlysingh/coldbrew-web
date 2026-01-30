@@ -4,11 +4,12 @@ import { Github, Twitter } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="py-16 border-t border-[var(--card-border)]">
-      <div className="container px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+    <footer className="py-12 border-t border-[var(--card-border)]">
+      <div className="container px-6 max-w-4xl mx-auto">
+        {/* Main footer content */}
+        <div className="flex flex-col items-center gap-8">
           {/* Logo and tagline */}
-          <div className="flex flex-col items-center md:items-start gap-2">
+          <div className="flex flex-col items-center gap-2">
             <div className="flex items-center gap-3">
               <svg
                 width="24"
@@ -34,7 +35,7 @@ export function Footer() {
                   fill="var(--code-bg)"
                 />
               </svg>
-              <span className="font-semibold">Coldbrew</span>
+              <span className="font-semibold text-lg">Coldbrew</span>
             </div>
             <p className="text-sm text-[var(--foreground-muted)]">
               Smooth. Fast. Reproducible.
@@ -42,7 +43,7 @@ export function Footer() {
           </div>
 
           {/* Links */}
-          <div className="flex items-center gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
             <a
               href="/docs"
               className="text-sm text-[var(--foreground-muted)] hover:text-[var(--foreground)] transition-colors"
@@ -68,7 +69,7 @@ export function Footer() {
           </div>
 
           {/* Social links */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <a
               href="https://github.com/swiftlysingh/coldbrew"
               target="_blank"
@@ -90,7 +91,8 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-[var(--card-border)] text-center">
+        {/* Copyright */}
+        <div className="mt-8 pt-6 border-t border-[var(--card-border)] text-center">
           <p className="text-sm text-[var(--foreground-muted)]">
             MIT License. Made with love and caffeine.
           </p>
