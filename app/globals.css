@@ -1,26 +1,328 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import "tailwindcss";
 
+/* ============================================
+   COLDBREW COFFEE THEME
+   ============================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light Mode - Cream & Espresso */
+  --background: #FAF6F1;
+  --background-secondary: #F5EDE4;
+  --foreground: #2C1810;
+  --foreground-muted: #6B5344;
+
+  --accent: #C4956A;
+  --accent-hover: #B8845A;
+  --accent-glow: rgba(196, 149, 106, 0.3);
+
+  --espresso: #3C2415;
+  --cream: #FDF8F3;
+  --mocha: #8B6F5C;
+  --copper: #B87333;
+
+  --card-bg: #FFFFFF;
+  --card-border: rgba(60, 36, 21, 0.08);
+  --card-shadow: 0 4px 24px rgba(60, 36, 21, 0.06);
+
+  --code-bg: #2C1810;
+  --code-text: #F5EDE4;
+
+  --grain-opacity: 0.03;
+}
+
+[data-theme="dark"] {
+  /* Dark Mode - Deep Roast */
+  --background: #0F0A07;
+  --background-secondary: #1A1310;
+  --foreground: #F5EDE4;
+  --foreground-muted: #A89585;
+
+  --accent: #D4A574;
+  --accent-hover: #E5B685;
+  --accent-glow: rgba(212, 165, 116, 0.2);
+
+  --espresso: #F5EDE4;
+  --cream: #2C1810;
+  --mocha: #C4A890;
+  --copper: #E5983B;
+
+  --card-bg: #1A1310;
+  --card-border: rgba(245, 237, 228, 0.08);
+  --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+
+  --code-bg: #1A1310;
+  --code-text: #F5EDE4;
+
+  --grain-opacity: 0.04;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-mono: "Space Mono", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "DM Sans", system-ui, sans-serif;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Film grain texture overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--cream);
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+code, pre {
+  font-family: "Space Mono", monospace;
+}
+
+/* ============================================
+   COMPONENTS
+   ============================================ */
+
+/* Glowing accent button */
+.btn-accent {
+  background: var(--accent);
+  color: var(--cream);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px var(--accent-glow);
+}
+
+.btn-accent:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px var(--accent-glow);
+}
+
+/* Code blocks styled like coffee menu boards */
+.code-block {
+  background: var(--code-bg);
+  color: var(--code-text);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  font-family: "Space Mono", monospace;
+  font-size: 0.9rem;
+  overflow-x: auto;
+  position: relative;
+  border: 1px solid rgba(196, 149, 106, 0.2);
+}
+
+.code-block::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--copper));
+  border-radius: 12px 12px 0 0;
+}
+
+/* Cards */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(60, 36, 21, 0.1);
+}
+
+[data-theme="dark"] .card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Steam animation for hero */
+@keyframes steam {
+  0% {
+    transform: translateY(0) scaleX(1);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-20px) scaleX(1.2);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-40px) scaleX(0.8);
+    opacity: 0;
+  }
+}
+
+.steam {
+  animation: steam 2.5s ease-in-out infinite;
+}
+
+.steam:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.steam:nth-child(3) {
+  animation-delay: 1s;
+}
+
+/* Benchmark bars */
+@keyframes grow {
+  from {
+    width: 0;
+  }
+}
+
+.benchmark-bar {
+  animation: grow 1s ease-out forwards;
+}
+
+/* Smooth fade in */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Stagger delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* Copy button */
+.copy-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  background: rgba(196, 149, 106, 0.15);
+  color: var(--accent);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.copy-btn:hover {
+  background: rgba(196, 149, 106, 0.3);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--mocha);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Table styling */
+.comparison-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.comparison-table th {
+  background: var(--background-secondary);
+  font-weight: 600;
+}
+
+.comparison-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Focus states */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Responsive container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
 }
